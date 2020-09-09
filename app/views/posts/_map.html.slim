@@ -1,0 +1,24 @@
+.container
+  br
+  #map(style="height: 400px;")
+  br
+
+javascript:
+  var lat = #{@post.latitude};
+  var lng = #{@post.longitude};
+
+  L.Icon.Default.imagePath = "/assets/images/marker_icon.png";
+  var map = L.map('map').setView([lat, lng], 15);
+  var osmUrl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+  var osmAttrib = "Map data ©︎ OpenStreetMap contributors";
+  L.tileLayer(osmUrl, {
+    attribution: osmAttrib,
+    maxZoom: 20,
+  }).addTo(map);
+
+  var marker = L.marker([lat, lng]).addTo(map);
+  map.on("click", function(e) {
+    marker.setLatLng(e.latlng);
+    $('#post_latitude').val(e.latlng.lat);
+    $('#post_longitude').val(e.latlng.lng);
+  });

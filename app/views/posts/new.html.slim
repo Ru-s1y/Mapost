@@ -1,0 +1,8 @@
+h1 投稿の新規登録
+
+.nav.justify-content-end
+  = link_to '一覧', posts_path, class: 'nav-link'
+
+= render partial: 'form', locals: { post: @post }
+
+= render partial: 'map', locals: { post: @post }
