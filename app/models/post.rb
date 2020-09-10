@@ -5,6 +5,10 @@ class Post < ApplicationRecord
   validates :latitude, presence: true
   validates :longitude, presence: true
 
+  belongs_to :user
+  
+  scope :recent, -> { order(created_at: :desc) }
+  
   private
     def set_less_latlng
       self.latitude = '34.695453' if latitude.blank?

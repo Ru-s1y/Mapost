@@ -7,8 +7,8 @@ javascript:
   var lat = #{@post.latitude};
   var lng = #{@post.longitude};
 
-  L.Icon.Default.imagePath = 'https://unpkg.com/leaflet@1.3.1/dist/images/';
-  var map = L.map('map').setView([lat, lng], 10);
+  L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.3.1/dist/images/";
+  var map = L.map('map').setView([lat, lng], 17);
   var osmUrl = "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   var osmAttrib = "Map data ©︎ OpenStreetMap contributors";
   L.tileLayer(osmUrl, {
@@ -16,7 +16,9 @@ javascript:
     maxZoom: 20,
   }).addTo(map);
 
-  var marker = L.marker([lat, lng], {icon: L.spriteIcon()}).addTo(map);
+  var marker = L.marker([lat, lng], {icon: L.spriteIcon('red')}).addTo(map);
   map.on("click", function(e) {
-    marker.bindPopup("<b>#{@post.name}</b><br>#{@post.description}").openPopup();
+    marker.setLatLng(e.latlng);
+    $('#post_latitude').val(e.latlng.lat);
+    $('#post_longitude').val(e.latlng.lng);
   });

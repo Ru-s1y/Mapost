@@ -25,9 +25,9 @@ table.table.table-hover
     tr
       th= Post.human_attribute_name(:longitude)
       td= @post.longitude
-      
+
 = render partial: 'map', locals: { post: @post }
 
 = link_to '編集', edit_post_path, class: 'btn btn-primary mr-3'
 = link_to '削除', @post, method: :delete, data: { confirm: "投稿「#@post.name」を削除します。よろしいですか？" }, class: 'btn btn-danger'
-
+br

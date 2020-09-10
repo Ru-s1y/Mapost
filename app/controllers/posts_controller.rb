@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+
   def index
-    @posts = Post.all
+    @posts = current_user.posts.order(created_at: :desc)
   end
 
   def show
@@ -20,7 +21,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = Post.new(post_params.merge(user_id: current_user.id))
     if @post.save
       redirect_to @post, notice: "投稿「#{@post.name}」を登録しました。"
     else
@@ -39,6 +40,6 @@ class PostsController < ApplicationController
     end
 
     def set_post
-      @post = Post.find(params[:id])
+      @post = current_user.posts.find(params[:id])
     end
 end
