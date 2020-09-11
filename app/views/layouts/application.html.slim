@@ -8,21 +8,22 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    .app-title.navbar.navbar-expand-md.navbar-light.bg-light
+    .app-title.navbar.navbar-expand-md.navbar-light.bg-light.nav-header
       .navbar-brand = link_to "Mapost", root_path
 
       ul.navbar-nav.ml-auto
         - if current_user
-          li.nav-item= link_to current_user.name, '#', class: 'nav-link'
+          li.nav-item= link_to current_user.name, help_path, class: 'nav-link'
           - if current_user.admin?
             li.nav-item= link_to 'ユーザーリスト', admin_users_path, class: 'nav-link'
           li.nav-item= link_to '投稿一覧', posts_url, class: 'nav-link'
-          li.nav-item= link_to 'ログアウト', logout_path, method: :delete, class: 'nav-link'
+          li.nav-item= link_to 'ログアウト', logout_path, method: :delete, class: 'nav-link', data: { confirm: "ログアウトします。よろしいですか？" }
         - else
           li.nav-item= link_to '新規登録', '#', class: 'nav-link'
           li.nav-item= link_to 'ログイン', login_path, class: 'nav-link'
 
     .container
+      br
       - if flash.notice.present?
         .alert.alert-success= flash.notice
       br

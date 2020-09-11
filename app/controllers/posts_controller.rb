@@ -31,7 +31,6 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: "ポスト「#{@post.name}」を削除しました。"
   end
 
   private
